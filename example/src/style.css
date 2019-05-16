@@ -1,0 +1,14 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	line-height: 1;
+}
+
+button {
+	outline: none;
+	border: none;
+	background-color: transparent;
+}

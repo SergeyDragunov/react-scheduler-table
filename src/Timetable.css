@@ -1,0 +1,84 @@
+.Timetable table {
+	width: 100%;
+  border-collapse: collapse;
+  background-color: #343a40;
+  color: white;
+}
+
+.Timetable td {
+	height: 40px;
+	min-width: 150px;
+  vertical-align: top;
+	border: 1px solid #454d55;
+}
+
+.Timetable tr td:first-child {
+	padding: 2px;
+	width: 5%;
+	text-align: right;
+}
+
+.Timetable thead th {
+	padding: 15px;
+	border: 1px solid #454d55;
+}
+
+/* TimeCell */
+
+.TimeCell {
+	padding: 0;
+}
+
+.TimeCell__wrapper {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.TimeCell__clear {
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	top: 15%;
+	right: 5%;
+	background-image: url('./clear.svg');
+}
+
+.TimeCell__save {
+	position: absolute;
+	bottom: 2%;
+	right: 5%;
+	color: white;
+	font-weight: 500;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.TimeCell__active-time {
+	padding: 0px 10px;
+}
+
+.TimeCell__button {
+	width: 100%;
+	height: 100%;
+}
+
+.TimeCell__button:hover {
+	background-color: #656d74;
+}
+
+.TimeCell__button:active {
+	background-color: #8796a5;
+}
+
+.TimeCell.start {
+	background-color: #607D8B;
+}
+
+.TimeCell.between {
+	background-color: #CFD8DC;
+}
+
+.TimeCell.end {
+	background-color: #455A64;
+}
