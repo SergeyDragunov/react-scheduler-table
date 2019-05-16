@@ -1,4 +1,4 @@
-# react-scheduler
+# react-scheduler-table
 
 > 
 
@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install --save react-scheduler
+npm install --save react-scheduler-table
 ```
 
 ## Usage
