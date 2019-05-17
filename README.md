@@ -15,16 +15,38 @@ npm install --save react-scheduler-table
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'react-scheduler'
+import Timetable from 'react-scheduler-table'
+
+const settings = {
+	startDay: "09:00",
+	endDay: "16:00",
+	is12hours: false,
+	hourSplit: 0.25, // 1 hour / 0.25 = 15 min - each row
+	columnCnt: 4
+};
 
 class Example extends Component {
   render () {
     return (
-      <MyComponent />
+      <Timetable settings={settings} />
     )
   }
 }
 ```
+
+## Props
+
+| Property    | Type   | Default   | Example                                                                                            | Description                                                                                                                                                                                                                                                                                                                       |
+|-------------|--------|-----------|----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `settings`  | object | undefined | {   startDay: "09:00",   endDay: "16:00",   is12hours: false,   hourSplit: 0.25,    columnCnt: 4 } | Initial settings for timetable: `startDay` - starting time for the table; `endDay` - ending time for the table; `is12hours` - 12 or 24 hours format; `hourSplit` - how hour should be divided (or row count for one hour). `0.5` for 30 min hour split (or 2 rows for one hour); `columnCnt` - how many columns in the timetable; |
+| `className` | string | undefined | 'MyTable'                                                                                          | Class for main component.                                                                                                                                                                                                                                                                                                         |
+
+## Methods
+
+| Method       | Type     | Example                                  | Param                                                                                            | Description                                          |
+|--------------|----------|------------------------------------------|--------------------------------------------------------------------------------------------------|------------------------------------------------------|
+| `onAddTime`  | function | `onAddTime={time => console.log(time)}`  | `{   activeColumn: number,    newStartTime: number,    newEndTime: number,    reserved: Array }` | Callback to choose any time (cell) in the timetable. |
+| `onSaveTime` | function | `onSaveTime={time => console.log(time)}` | `{   activeColumn: number,    newStartTime: number,    newEndTime: number,    reserved: Array }` | Callback to save time in the timetable.              |
 
 ## License
 

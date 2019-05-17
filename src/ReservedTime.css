@@ -27,7 +27,7 @@
   width: 25px;
   height: 25px;
 	position: absolute;
-	top: 10px;
-	right: 10px;
+	top: 0px;
+  right: 0px;
 	cursor: pointer;
 }

@@ -46,8 +46,6 @@ const tConv24 = time12h => {
   return `${hours}:${minutes}`;
 }
 
-// console.log(tConv24("08:00 PM"));
-
 export const ID = function() {
 	return (
 		"_" +

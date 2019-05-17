@@ -208,9 +208,7 @@ export class Timetable extends Component {
 			arr.push(
 				<td
 					data-test="TimeCell"
-					className={`${styles.TimeCell} ${styles[cellStatus(column)]} ${cellReservedStatus(
-						column
-					)}`}
+					className={`${styles.TimeCell} ${styles[cellStatus(column)]} ${cellReservedStatus(column)}`}
 					key={column}
 				>
 					<div className={styles.TimeCell__wrapper}>
@@ -224,7 +222,7 @@ export class Timetable extends Component {
 						) : null}
 						{cellStatus(column) === "start" ? (
 							<div>
-								<span className={styles.TimeCell__active-time}>{activeTime()}</span>
+								<span className={styles.TimeCell__activeTime}>{activeTime()}</span>
 								<button
 									data-test="TimeCell__reset-button"
 									className={styles.TimeCell__clear}
@@ -304,6 +302,7 @@ Timetable.propTypes = {
 		columnCnt: PropTypes.number,
 		is12hours: PropTypes.bool
 	}),
+	reserved: PropTypes.array,
 	className: PropTypes.string,
 	onAddTime: PropTypes.func,
 	onSaveTime: PropTypes.func
