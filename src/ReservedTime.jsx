@@ -6,7 +6,7 @@ import  styles from'./ReservedTime.css';
 
 const CELL_HEIGHT = 40;
 
-const ReservedTime = ({ time, hourSplit, is12hours, removeReserved }) => {
+const ReservedTime = ({ className, content, time, hourSplit, is12hours, removeReserved }) => {
 	const blockHeight =
 		CELL_HEIGHT * (((time.end - time.start) * 1) / hourSplit) - 3 + "px";
 
@@ -16,16 +16,14 @@ const ReservedTime = ({ time, hourSplit, is12hours, removeReserved }) => {
   const timeParser = timeToStringParser(is12hours);
 
 	return (
-		<div className={styles.ReservedTime} style={style}>
+		<div className={`${className || ''} ` + styles.ReservedTime} style={style}>
 			<button
 				className={styles.ReservedTime__delete}
 				onClick={() => removeReserved(time.id)}
 			>
 				<ClearIcon />
 			</button>
-			<h4 className={styles.ReservedTime__heading}>
-				Reserved: {`${timeParser(time.start)} - ${timeParser(time.end)}`}
-			</h4>
+			{content({...time, parsedStart: timeParser(time.start), parsedEnd: timeParser(time.end)})}
 		</div>
 	);
 };

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import styles from "./Timetable.css";
+import { ReactComponent as ClearIcon } from './clear.svg';
 
 import { timeToStringParser, timeToIntParser, ID } from "./utils.js";
 import ReservedTime from "./ReservedTime.jsx";
@@ -9,7 +10,7 @@ import ReservedTime from "./ReservedTime.jsx";
 const settings = {
 	startDay: "01:00",
 	endDay: "24:00",
-	hourSplit: 1, // 1 hour / 0.25 = 15 min - each row
+	hourSplit: 1,
 	columnCnt: 1,
 	is12hours: false
 };
@@ -23,16 +24,6 @@ export class Timetable extends Component {
 			activeColumn: null,
 			reserved: this.props.reserved || []
 		};
-
-		// Default settings || props settings
-		this.settings = this.props.settings ? { ...settings,	...this.props.settings } : settings;
-
-		// Assigning 12 || 24 hour format
-		this.timeToStringParser = timeToStringParser(this.settings.is12hours)
-		this.timeToIntParser = timeToIntParser(this.settings.is12hours)
-
-		this.settings.startDay = this.timeToIntParser(this.settings.startDay);
-		this.settings.endDay = this.timeToIntParser(this.settings.endDay);
 
 		this.addTime = this.addTime.bind(this);
 		this.resetTime = this.resetTime.bind(this);
@@ -194,26 +185,28 @@ export class Timetable extends Component {
 			}
 		};
 
-		const activeTime = () =>
-			newStartTime && !newEndTime
-				? `${this.timeToStringParser(newStartTime)} - `
-				: newStartTime && newEndTime
-				? `${this.timeToStringParser(newStartTime)} - ${this.timeToStringParser(
-						newEndTime + hourSplit
-				  )}`
-				: "";
+		// const activeTime = () =>
+		// 	newStartTime && !newEndTime
+		// 		? `${this.timeToStringParser(newStartTime)} - `
+		// 		: newStartTime && newEndTime
+		// 		? `${this.timeToStringParser(newStartTime)} - ${this.timeToStringParser(
+		// 				newEndTime + hourSplit
+		// 		  )}`
+		// 		: "";
 
 		let arr = [];
 		for (let column = 1; column <= columnCnt; column++) {
 			arr.push(
 				<td
 					data-test="TimeCell"
-					className={`${styles.TimeCell} ${styles[cellStatus(column)]} ${cellReservedStatus(column)}`}
+					className={`${styles.TimeCell} ${cellStatus(column) ? styles[cellStatus(column)] : ''} ${cellReservedStatus(column)}`}
 					key={column}
 				>
 					<div className={styles.TimeCell__wrapper}>
 						{cellReservedStatus(column) === "reserved-start" ? (
 							<ReservedTime
+								className={this.props.classNameSavedTime}
+								content={this.props.savedTimeContent}
 								time={getReservedTime(column)}
 								hourSplit={hourSplit}
 								is12hours={is12hours}
@@ -222,12 +215,13 @@ export class Timetable extends Component {
 						) : null}
 						{cellStatus(column) === "start" ? (
 							<div>
-								<span className={styles.TimeCell__activeTime}>{activeTime()}</span>
 								<button
 									data-test="TimeCell__reset-button"
 									className={styles.TimeCell__clear}
 									onClick={this.resetTime}
-								/>
+								>
+									<ClearIcon />
+								</button>
 							</div>
 						) : null}
 						{cellStatus(column) === "end" ? (
@@ -268,7 +262,20 @@ export class Timetable extends Component {
 		return arr;
 	}
 
+	setSettings() {
+		// Default settings || props settings
+		this.settings = this.props.settings ? { ...settings,	...this.props.settings } : settings;
+
+		// Assigning 12 || 24 hour format
+		this.timeToStringParser = timeToStringParser(this.settings.is12hours)
+		this.timeToIntParser = timeToIntParser(this.settings.is12hours)
+
+		this.settings.startDay = this.timeToIntParser(this.settings.startDay);
+		this.settings.endDay = this.timeToIntParser(this.settings.endDay);
+	}
+
 	render() {
+		this.setSettings();
 		const { columnCnt } = this.settings;
 		const { className } = this.props;
 
@@ -304,6 +311,7 @@ Timetable.propTypes = {
 	}),
 	reserved: PropTypes.array,
 	className: PropTypes.string,
+	classNameSavedTime: PropTypes.string,
 	onAddTime: PropTypes.func,
 	onSaveTime: PropTypes.func
 };

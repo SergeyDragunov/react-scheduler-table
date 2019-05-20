@@ -8,13 +8,9 @@
 	margin-left: calc(2% / 2);
 	margin-top: 2px;
 	border-radius: 5px;
-	border: 2px solid rgb(233, 30, 99);
-	background-color: rgba(233, 30, 99, 0.8);
-	transition: background 0.25s;
-}
-
-.ReservedTime:hover {
-	background-color: rgb(233, 30, 99);
+	border: 2px solid rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.9);
+	color: #ffffff;
 }
 
 .ReservedTime__heading {

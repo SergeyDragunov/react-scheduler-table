@@ -5,7 +5,7 @@ export const timeToStringParser = is12hours => time => {
 		const hourPart = "0" + timeStr.slice(timeStr.indexOf("."));
 		m = 60 * hourPart;
 	}
-	let h = parseInt(time) < 10 ? "0" + parseInt(time) : parseInt(time);
+	let h = parseInt(time, 10) < 10 ? "0" + parseInt(time, 10) : parseInt(time, 10);
 	let parsedTime = `${h}:${m}`;
 
 	return is12hours ? tConv12(parsedTime) : parsedTime;
@@ -14,8 +14,8 @@ export const timeToStringParser = is12hours => time => {
 export const timeToIntParser = is12hours => time => {
 	time = is12hours ? tConv24(time) : time;
 	const timeArr = time.split(':');
-	const h = parseInt(timeArr[0]);
-	const m = parseInt(timeArr[1]) / 60;
+	const h = parseInt(timeArr[0], 10);
+	const m = parseInt(timeArr[1], 10) / 60;
 
 	return h + m;
 }
