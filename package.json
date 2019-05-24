@@ -1,9 +1,10 @@
 {
   "name": "react-scheduler-table",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "author": "SergeyDragunov",
   "license": "MIT",
+  "keywords": ["react", "component", "table", "scheduler", "timetable", "react-scheduler-table"],
   "repository": "SergeyDragunov/react-scheduler-table",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
