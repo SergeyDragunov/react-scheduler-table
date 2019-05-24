@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 
-import { ID } from "./utils.js";
+import { ID, timeToStringParser, timeToIntParser } from "./utils.js";
 import Timetable from "react-scheduler-table";
 
 const settings = {
+	cellHeight: 40,
 	startDay: "09:00",
 	endDay: "16:00",
 	is12hours: false,
@@ -32,10 +33,29 @@ class App extends Component {
 	}
 
 	setHourFormat(e) {
-		this.setState({settings: {...this.state.settings, is12hours: parseInt(e.target.value, 10) === 12}})
+		let newSettings = {
+			...this.state.settings,
+			cellHeight: parseInt(e.target.value, 10) === 12 ? 52 : 40,
+			is12hours: parseInt(e.target.value, 10) === 12
+		}
+
+		this.setState({ settings: newSettings })
+	}
+
+	setHours(e) {
+		let newSettings = {
+			...this.state.settings,
+			[e.target.name]: e.target.value
+		}
+
+		this.setState({ settings: newSettings })
 	}
 
 	render() {
+		const { is12hours, startDay, endDay } = this.state.settings;
+		const timeToStr = timeToStringParser(is12hours);
+		const timeToInt = timeToIntParser(is12hours);
+
 		return (
 			<div>
 				<div className="container">
@@ -45,6 +65,7 @@ class App extends Component {
 							<div className="custom-control custom-radio custom-control-inline">
 							  <input 
 							  	type="radio" 
+							  	checked={is12hours}
 							  	id="customRadioInline1" 
 							  	name="customRadioInline1" 
 							  	className="custom-control-input"
@@ -54,8 +75,8 @@ class App extends Component {
 							</div>
 							<div className="custom-control custom-radio custom-control-inline">
 							  <input 
-							  	checked
 							  	type="radio" 
+							  	checked={!is12hours}
 							  	id="customRadioInline2" 
 							  	name="customRadioInline1" 
 							  	className="custom-control-input"
@@ -67,28 +88,52 @@ class App extends Component {
 						<div className="form-row">
 					    <div className="col">
 					    	<div className="form-group">
-					    	  <label htmlFor="formGroupExampleInput">Start of the day</label>
-						      <select className="custom-select">
-									  <option>Default select</option>
+					    	  <label htmlFor="start_day">Start of the day</label>
+						      <select
+						      	id="start_day"
+						      	name="startDay" 
+						      	value={startDay} 
+						      	className="custom-select"
+						      	onChange={this.setHours.bind(this)}
+						      >
+									  {(() => {
+									  	let arr = [];
+									  	for (let i = 1; i < timeToInt(endDay); i++) {
+									  		arr.push(<option value={timeToStr(i)} key={i}>{timeToStr(i)}</option>)
+									  	}
+									  	return arr;
+									  })()}
 									</select>
 					    	</div>
 					    </div>
 					    <div className="col">
 					    	<div className="form-group">
-					    	  <label htmlFor="formGroupExampleInput">End of the day</label>
-						      <select className="custom-select">
-									  <option>Default select</option>
+					    	  <label htmlFor="end_day">End of the day</label>
+						      <select 
+						      	id="end_day"
+						      	name="endDay" 
+						      	value={endDay} 
+						      	className="custom-select"
+						      	onChange={this.setHours.bind(this)}
+						      >
+									  {(() => {
+									  	let arr = [];
+									  	for (let i = timeToInt(startDay) + 1; i <= 24; i++) {
+									  		arr.push(<option value={timeToStr(i)} key={i}>{timeToStr(i)}</option>)
+									  	}
+									  	return arr;
+									  })()}
 									</select>
 					    	</div>
 					    </div>
 					  </div>
 					  <div className="form-row">
 					  	<div className="col">
-					  		<label htmlFor="customRange1">Columns</label>
+					  		<label htmlFor="columns">Columns</label>
 					  		<input 
 					  			type="range" 
 					  			className="custom-range" 
-					  			id="customRange1" 
+					  			id="columns" 
 					  			min={1} 
 					  			max={10} 
 					  			value={this.state.settings.columnCnt}

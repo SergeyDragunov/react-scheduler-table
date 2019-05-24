@@ -8,6 +8,7 @@ import { timeToStringParser, timeToIntParser, ID } from "./utils.js";
 import ReservedTime from "./ReservedTime.jsx";
 
 const settings = {
+	cellHeight: 40,
 	startDay: "01:00",
 	endDay: "24:00",
 	hourSplit: 1,
@@ -139,7 +140,7 @@ export class Timetable extends Component {
 	}
 
 	renderTimeCell(time) {
-		const { columnCnt, hourSplit, is12hours } = this.settings;
+		const { cellHeight, columnCnt, hourSplit, is12hours } = this.settings;
 		const { newStartTime, newEndTime, activeColumn } = this.state;
 
 		const shouldAddButtonRendered = (time, column) => {
@@ -205,6 +206,7 @@ export class Timetable extends Component {
 					<div className={styles.TimeCell__wrapper}>
 						{cellReservedStatus(column) === "reserved-start" ? (
 							<ReservedTime
+								cellHeight={cellHeight}
 								className={this.props.classNameSavedTime}
 								content={this.props.savedTimeContent}
 								time={getReservedTime(column)}
@@ -248,12 +250,14 @@ export class Timetable extends Component {
 	}
 
 	renderTimeRow() {
-		const { startDay, endDay, hourSplit } = this.settings;
+		const { cellHeight, startDay, endDay, hourSplit } = this.settings;
 		let arr = [];
 		for (let i = startDay; i < endDay; i += hourSplit) {
 			let el = (
 				<tr key={i}>
-					<td>{Number.isInteger(i) ? this.timeToStringParser(i) : null}</td>
+					<td style={{height: cellHeight + "px"}}>
+						<span>{Number.isInteger(i) ? this.timeToStringParser(i) : null}</span>
+					</td>
 					{this.renderTimeCell(i)}
 				</tr>
 			);
@@ -284,11 +288,11 @@ export class Timetable extends Component {
 				<table>
 					<thead>
 						<tr>
-							<th>Time</th>
+							<th><span>Time</span></th>
 							{(() => {
 								let arr = [];
 								for (let i = 0; i < columnCnt; i++) {
-									arr.push(<th key={i}>{i + 1}</th>);
+									arr.push(<th key={i}><span>{i + 1}</span></th>);
 								}
 								return arr;
 							})()}
@@ -303,6 +307,7 @@ export class Timetable extends Component {
 
 Timetable.propTypes = {
 	settings: PropTypes.shape({
+		cellHeight: PropTypes.number,
 		startDay: PropTypes.string,
 		endDay: PropTypes.string,
 		hourSplit: PropTypes.number,
