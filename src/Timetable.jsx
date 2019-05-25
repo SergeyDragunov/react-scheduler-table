@@ -7,7 +7,7 @@ import { ReactComponent as ClearIcon } from './clear.svg';
 import { timeToStringParser, timeToIntParser, ID } from "./utils.js";
 import ReservedTime from "./ReservedTime.jsx";
 
-const settings = {
+export const settings = {
 	cellHeight: 40,
 	startDay: "01:00",
 	endDay: "24:00",
