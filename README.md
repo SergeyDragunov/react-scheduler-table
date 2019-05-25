@@ -21,7 +21,7 @@ const settings = {
 	startDay: "09:00",
 	endDay: "16:00",
 	is12hours: false,
-	hourSplit: 0.25, // 1 hour / 0.25 = 15 min - each row
+	hourSplit: 0.25,
 	columnCnt: 4
 };
 
@@ -34,22 +34,37 @@ class Example extends Component {
 }
 ```
 
+### Default Settings
+
+```jsx
+...
+const settings = {
+	cellHeight: 40,    // `cellHeight` - height for cells (needed for proper render SavedTime);
+	startDay: "01:00", // `startDay` - starting time for the table;
+	endDay: "24:00",   // `endDay` - ending time for the table;
+	hourSplit: 1,      // `is12hours` - 12 or 24 hours format;
+	columnCnt: 1,      // `hourSplit` - how hour should be divided (or row count for one hour). `0.5` for 30 min hour split (or 2 rows for one hour);
+	is12hours: false   // `columnCnt` - how many columns in the timetable;
+};
+...
+```
+
 ## Props
 
-| Property | Type | Default | Example | Description |
-|----------------------|--------------------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `settings` | object |  | {\     cellHeight: 40,\       startDay: "09:00",\        endDay: "16:00",\        is12hours: false,\        hourSplit: 0.25,\         columnCnt: 4\    } | Initial settings for timetable: `cellHeight` - height for cells (needed for proper render SavedTime); `startDay` - starting time for the table; `endDay` - ending time for the table; `is12hours` - 12 or 24 hours format; `hourSplit` - how hour should be divided (or row count for one hour). `0.5` for 30 min hour split (or 2 rows for one hour); `columnCnt` - how many columns in the timetable; |
-| `className` | string |  | 'MyTable' | Class for main component table. |
-| `classNameSavedTime` | string |  | 'MySavedTime' | Class for SavedTime component. |
-| `reserved` | Array |  | [        {		     id: uniqueID,  	     start: 10,  	     end: 12,  	     column: 1  	   }   ]      | Default data. |
-| `savedTimeContent` | React Component / String |  | `savedTime => <h5>My Saved Time: <br /> {`${savedTime.parsedStart} - ${savedTime.parsedEnd}`}</h5>` | Content inside SavedTime component. |
+| Property | Type | Description |
+|----------------------|--------------------------|-------------------------------------|
+| `settings` | Object | Initial settings for timetable |
+| `className` | String | Class for main component table. |
+| `classNameSavedTime` | String | Class for SavedTime component. |
+| `reserved` | Array | Default data. |
+| `savedTimeContent` | React Component / String | Content inside SavedTime component. |
 
 ## Methods
 
 | Method       | Type     | Example                                  | Param                                                                                            | Description                                          |
 |--------------|----------|------------------------------------------|--------------------------------------------------------------------------------------------------|------------------------------------------------------|
-| `onAddTime`  | function | `onAddTime={time => console.log(time)}`  | `{   activeColumn: number,    newStartTime: number,    newEndTime: number,    reserved: Array }` | Callback to choose any time (cell) in the timetable. |
-| `onSaveTime` | function | `onSaveTime={time => console.log(time)}` | `{   activeColumn: number,    newStartTime: number,    newEndTime: number,    reserved: Array }` | Callback to save time in the timetable.              |
+| `onAddTime`  | Function | `onAddTime={time => console.log(time)}`  | `{   activeColumn: number,    newStartTime: number,    newEndTime: number,    reserved: Array }` | Callback to choose any time (cell) in the timetable. |
+| `onSaveTime` | Function | `onSaveTime={time => console.log(time)}` | `{   activeColumn: number,    newStartTime: number,    newEndTime: number,    reserved: Array }` | Callback to save time in the timetable.              |
 
 ## License
 
