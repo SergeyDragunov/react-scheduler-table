@@ -15,6 +15,11 @@ button {
 
 /* Custom styles for table */
 
+.Footer {
+	padding: 20px 0px;
+	text-align: center;
+}
+
 .Settings {
 	margin-bottom: 30px;
 }

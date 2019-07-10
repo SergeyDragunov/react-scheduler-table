@@ -57,7 +57,7 @@ class App extends Component {
 		const timeToInt = timeToIntParser(is12hours);
 
 		return (
-			<div>
+			<div className="App">
 				<div className="container">
 					<div className="Settings">
 						<h2>Settings</h2>
@@ -158,6 +158,9 @@ class App extends Component {
 						}
 					/>
 				</div>
+				<footer className="Footer">
+					MIT © <a href="https://github.com/SergeyDragunov">SergeyDragunov</a>
+				</footer>
 			</div>
 		);
 	}

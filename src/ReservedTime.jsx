@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { timeToStringParser } from './utils';
 import { ReactComponent as ClearIcon } from './clear.svg';
-import  styles from'./ReservedTime.css';
+import  styles from './ReservedTime.css';
 
 const ReservedTime = ({ cellHeight, className, content, time, hourSplit, is12hours, removeReserved }) => {
 	const blockHeight =
